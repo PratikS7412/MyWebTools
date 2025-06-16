@@ -241,7 +241,8 @@
         return;
       }
 
-      const blockName = `${systemName} ${type} (${specs}) (${extras}) (${weight} TON)`;
+      // Format: systemname type PARKING SYSTEM (Specs) (Extras) (Weight TON)
+      const blockName = `${systemName} ${type} PARKING SYSTEM (${specs}) (${extras}) (${weight} TON)`;
       document.getElementById('result').innerText = blockName;
 
       navigator.clipboard.writeText(blockName);
