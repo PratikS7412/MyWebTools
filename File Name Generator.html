@@ -76,7 +76,7 @@
       display: flex;
       gap: 24px;
       justify-content: center;
-      margin-bottom: 22px;
+      margin-bottom: 12px;
     }
     .radio-group label {
       font-weight: 700;
@@ -98,6 +98,40 @@
     }
     .radio-group input[type="radio"]:focus + label {
       outline: 2px solid #43cea2;
+    }
+    #revisionField {
+      margin-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+    }
+    #revisionField label {
+      margin-bottom: 6px;
+      margin-top: 0;
+      font-weight: 600;
+      color: #e3e9f0;
+      letter-spacing: 0.7px;
+      font-size: 1.08rem;
+      text-shadow: 0 1px 4px rgba(44,83,100,0.08);
+    }
+    #revisionNumber {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.08rem;
+      background: rgba(255,255,255,0.22);
+      color: #1a2636;
+      outline: none;
+      margin-bottom: 0;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(44,83,100,0.06);
+      transition: box-shadow 0.2s, background 0.2s;
+    }
+    #revisionNumber:focus {
+      background: rgba(255,255,255,0.38);
+      box-shadow: 0 4px 16px rgba(44,83,100,0.13);
     }
     label {
       display: block;
@@ -232,6 +266,12 @@
       </label>
     </div>
 
+    <!-- Revision Number Field -->
+    <div id="revisionField">
+      <label for="revisionNumber">Revision Number</label>
+      <input type="text" id="revisionNumber" autocomplete="off" placeholder="Enter revision number">
+    </div>
+
     <form id="fileForm" style="display: flex; flex-direction: column; gap: 0;">
       <div id="plFields">
         <label for="plLead">Lead Number</label>
@@ -298,6 +338,12 @@
 
   function generateAndCopyFileName() {
     const type = document.querySelector('input[name="fileType"]:checked').value;
+    const revision = toUpper(document.getElementById('revisionNumber').value);
+    if (!revision) {
+      document.getElementById('result').innerText = "Please enter revision number.";
+      document.getElementById('copyMsg').style.display = 'none';
+      return;
+    }
     let fileName = '';
     if (type === 'PL') {
       const lead = toUpper(document.getElementById('plLead').value);
@@ -310,7 +356,7 @@
         document.getElementById('copyMsg').style.display = 'none';
         return;
       }
-      fileName = `PL_${lead}_PARKING SYSTEM_${customer}_${project}_${site}_${date}`;
+      fileName = `PL_${lead}_PARKING SYSTEM_${customer}_${project}_${site}_REV${revision}_${date}`;
     } else {
       const system = toUpper(document.getElementById('slSystem').value);
       const weight = toUpper(document.getElementById('slWeight').value);
@@ -324,7 +370,7 @@
         document.getElementById('copyMsg').style.display = 'none';
         return;
       }
-      fileName = `SL_${system}_PARKING SYSTEM_${weight}TON_${lead}_${customer}_${project}_${site}_${date}`;
+      fileName = `SL_${system}_PARKING SYSTEM_${weight}TON_${lead}_${customer}_${project}_${site}_REV${revision}_${date}`;
     }
     document.getElementById('result').innerText = fileName;
     navigator.clipboard.writeText(fileName);
