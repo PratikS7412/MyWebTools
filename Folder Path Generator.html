@@ -191,6 +191,21 @@
     <label for="site">Site:</label>
     <input type="text" id="site" placeholder="Enter site">
 
+    <!-- New Section: Type Selection -->
+    <label>Type:</label>
+    <div style="margin-bottom: 10px; display: flex; gap: 24px; align-items: center;">
+      <label style="font-weight: 500; color: #e3e9f0; font-size: 1rem;">
+        <input type="radio" name="type" value="PROPOSAL" checked style="margin-right: 6px;"> PROPOSAL
+      </label>
+      <label style="font-weight: 500; color: #e3e9f0; font-size: 1rem;">
+        <input type="radio" name="type" value="GAD" style="margin-right: 6px;"> GAD
+      </label>
+    </div>
+
+    <!-- New Section: Revision Field -->
+    <label for="revision">Revision:</label>
+    <input type="text" id="revision" value="REV-00" placeholder="Enter revision (e.g., REV-00)">
+
     <div class="btn-group">
       <button onclick="generateAndCopyPath()">Generate &amp; Copy Folder Path</button>
     </div>
@@ -226,7 +241,13 @@
       const leadNumber = formatInput(document.getElementById("leadNumber").value);
       const site = formatInput(document.getElementById("site").value);
 
-      if (!customerName || !projectName || !leadNumber || !site) {
+      // Get selected type (PROPOSAL or GAD)
+      const type = document.querySelector('input[name="type"]:checked').value;
+
+      // Get revision value
+      const revision = formatInput(document.getElementById("revision").value);
+
+      if (!customerName || !projectName || !leadNumber || !site || !type || !revision) {
         document.getElementById("result").innerText = "Please fill all fields to generate the folder path.";
         const msg = document.getElementById("copyMsg");
         if (msg) {
@@ -238,8 +259,8 @@
 
       const fullPath = `MD "${customerName}"\\` +
         `"${projectName}_${leadNumber}_${site}"\\` +
-        `"PROPOSAL"\\` +
-        `"REV-00"\\` +
+        `"${type}"\\` +
+        `"${revision}"\\` +
         `"FROM CUSTOMER"`;
 
       document.getElementById("result").innerText = fullPath;

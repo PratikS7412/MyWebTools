@@ -8,6 +8,7 @@
     body {
       font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
       background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+      padding: 0;
       margin: 0;
       min-height: 100vh;
       display: flex;
@@ -30,10 +31,10 @@
       animation: float 12s infinite linear;
       background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
     }
-    .dot1 { width: 140px; height: 140px; left: 8vw; top: 10vh; animation-delay: 0s;}
-    .dot2 { width: 90px; height: 90px; right: 10vw; top: 24vh; animation-delay: 2s;}
-    .dot3 { width: 110px; height: 110px; left: 20vw; bottom: 8vh; animation-delay: 4s;}
-    .dot4 { width: 70px; height: 70px; right: 18vw; bottom: 14vh; animation-delay: 6s;}
+    .dot1 { width: 120px; height: 120px; left: 8vw; top: 12vh; animation-delay: 0s;}
+    .dot2 { width: 80px; height: 80px; right: 10vw; top: 22vh; animation-delay: 2s;}
+    .dot3 { width: 100px; height: 100px; left: 20vw; bottom: 10vh; animation-delay: 4s;}
+    .dot4 { width: 60px; height: 60px; right: 18vw; bottom: 16vh; animation-delay: 6s;}
     @keyframes float {
       0% { transform: translateY(0) scale(1);}
       50% { transform: translateY(-30px) scale(1.08);}
@@ -76,62 +77,28 @@
       display: flex;
       gap: 24px;
       justify-content: center;
-      margin-bottom: 12px;
+      margin-bottom: 18px;
     }
     .radio-group label {
-      font-weight: 700;
+      background: rgba(38, 255, 230, 0.08);
+      border: 2px solid #43cea2;
+      border-radius: 12px;
+      padding: 8px 32px;
+      font-weight: 600;
       color: #43cea2;
-      font-size: 1.13rem;
       cursor: pointer;
-      padding: 10px 22px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.18);
-      border: 1.5px solid #43cea2;
-      transition: background 0.2s, border 0.2s, color 0.2s;
-      user-select: none;
-      box-shadow: 0 2px 8px rgba(67,206,162,0.08);
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.08rem;
     }
     .radio-group input[type="radio"] {
       accent-color: #43cea2;
-      margin-right: 7px;
-      transform: scale(1.15);
+      margin-right: 8px;
     }
-    .radio-group input[type="radio"]:focus + label {
-      outline: 2px solid #43cea2;
-    }
-    #revisionField {
-      margin-bottom: 18px;
-      display: flex;
-      flex-direction: column;
-    }
-    #revisionField label {
-      margin-bottom: 6px;
-      margin-top: 0;
-      font-weight: 600;
-      color: #e3e9f0;
-      letter-spacing: 0.7px;
-      font-size: 1.08rem;
-      text-shadow: 0 1px 4px rgba(44,83,100,0.08);
-    }
-    #revisionNumber {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 12px 14px;
-      border: none;
-      border-radius: 10px;
-      font-size: 1.08rem;
-      background: rgba(255,255,255,0.22);
-      color: #1a2636;
-      outline: none;
-      margin-bottom: 0;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      box-shadow: 0 2px 8px rgba(44,83,100,0.06);
-      transition: box-shadow 0.2s, background 0.2s;
-    }
-    #revisionNumber:focus {
-      background: rgba(255,255,255,0.38);
-      box-shadow: 0 4px 16px rgba(44,83,100,0.13);
+    .radio-group input[type="radio"]:checked + span {
+      color: #185a9d;
     }
     label {
       display: block;
@@ -162,7 +129,7 @@
       background: rgba(255,255,255,0.38);
       box-shadow: 0 4px 16px rgba(44,83,100,0.13);
     }
-    button {
+    button, .return-btn {
       width: 100%;
       margin-top: 28px;
       padding: 16px 0;
@@ -178,11 +145,16 @@
       letter-spacing: 1px;
       position: relative;
       overflow: hidden;
+      text-align: center;
+      text-decoration: none;
+      display: block;
     }
-    button:hover {
+    button:hover, .return-btn:hover {
       background: linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
       transform: translateY(-2px) scale(1.03);
       box-shadow: 0 8px 24px rgba(56,239,125,0.13);
+      color: #fff;
+      text-decoration: underline;
     }
     #result {
       margin-top: 32px;
@@ -200,7 +172,7 @@
       text-align: center;
       box-shadow: 0 1px 4px rgba(60,80,180,0.05);
     }
-    #copyMsg {
+    #copiedWarning {
       color: #43cea2;
       font-size: 1.02rem;
       margin-top: 10px;
@@ -210,7 +182,7 @@
       letter-spacing: 0.5px;
       text-shadow: 0 1px 6px rgba(67,206,162,0.13);
     }
-    #copyMsg.show {
+    #copiedWarning.show {
       display: block;
       animation: fadeInOut 1.2s;
     }
@@ -220,20 +192,9 @@
       90% { opacity: 1; }
       100% { opacity: 0; }
     }
-    .footer-link {
-      display: block;
-      margin-top: 32px;
-      text-align: center;
-      color: #43cea2;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.08rem;
-      transition: color 0.2s;
-      letter-spacing: 0.5px;
-    }
-    .footer-link:hover {
-      color: #185a9d;
-      text-decoration: underline;
+    .sl-fields {
+      display: none;
+      animation: fadeIn 0.3s;
     }
     @media (max-width: 600px) {
       .container {
@@ -256,129 +217,101 @@
     <div class="dot dot4"></div>
   </div>
   <div class="container">
-    <h1>📝 File Name Generator</h1>
-    <div class="radio-group">
-      <label>
-        <input type="radio" name="fileType" value="PL" checked onchange="toggleFields()"> PL
-      </label>
-      <label>
-        <input type="radio" name="fileType" value="SL" onchange="toggleFields()"> SL
-      </label>
-    </div>
-
-    <!-- Revision Number Field -->
-    <div id="revisionField">
-      <label for="revisionNumber">Revision Number</label>
-      <input type="text" id="revisionNumber" autocomplete="off" placeholder="Enter revision number" value="R0">
-    </div>
-
-    <form id="fileForm" style="display: flex; flex-direction: column; gap: 0;">
-      <div id="plFields">
-        <label for="plLead">Lead Number</label>
-        <input type="text" id="plLead" autocomplete="off" placeholder="Enter lead number">
-
-        <label for="plCustomer">Customer Name</label>
-        <input type="text" id="plCustomer" autocomplete="off" placeholder="Enter customer name">
-
-        <label for="plProject">Project Name</label>
-        <input type="text" id="plProject" autocomplete="off" placeholder="Enter project name">
-
-        <label for="plSite">Site</label>
-        <input type="text" id="plSite" autocomplete="off" placeholder="Enter site">
+    <h1>📄 File Name Generator</h1>
+    <form id="fileNameForm" style="display: flex; flex-direction: column; gap: 0;" onsubmit="event.preventDefault(); generateFileName();">
+      <div class="radio-group">
+        <label>
+          <input type="radio" name="prefix" value="PL" id="pl" checked onchange="toggleSLFields()">
+          <span>PL</span>
+        </label>
+        <label>
+          <input type="radio" name="prefix" value="SL" id="sl" onchange="toggleSLFields()">
+          <span>SL</span>
+        </label>
       </div>
-
-      <div id="slFields" style="display:none;">
-        <label for="slSystem">System Name</label>
-        <input type="text" id="slSystem" autocomplete="off" placeholder="Enter system name">
-
-        <label for="slWeight">Weight Capacity (TON)</label>
-        <input type="text" id="slWeight" autocomplete="off" placeholder="Enter weight capacity">
-
-        <label for="slLead">Lead Number</label>
-        <input type="text" id="slLead" autocomplete="off" placeholder="Enter lead number">
-
-        <label for="slCustomer">Customer Name</label>
-        <input type="text" id="slCustomer" autocomplete="off" placeholder="Enter customer name">
-
-        <label for="slProject">Project Name</label>
-        <input type="text" id="slProject" autocomplete="off" placeholder="Enter project name">
-
-        <label for="slSite">Site</label>
-        <input type="text" id="slSite" autocomplete="off" placeholder="Enter site">
+      <label for="revision">Revision Number</label>
+      <input type="text" id="revision" value="R0" maxlength="3" required
+        oninput="this.value = this.value.toUpperCase().replace(/[^R0-9]/g, '').replace(/^(?!R\d*$).*/, 'R0');">
+      <!-- SL-specific fields right after Revision field -->
+      <div class="sl-fields" id="slFields">
+        <label for="systemName">System Name</label>
+        <input type="text" id="systemName" placeholder="Enter system name">
+        <label for="weight">Weight</label>
+        <input type="text" id="weight" placeholder="Enter weight">
       </div>
-
-      <button type="button" onclick="generateAndCopyFileName()">Generate &amp; Copy File Name</button>
+      <label for="leadNumber">Lead Number</label>
+      <input type="text" id="leadNumber" placeholder="Enter lead number" required>
+      <label for="customerName">Customer Name</label>
+      <input type="text" id="customerName" placeholder="Enter customer name" required>
+      <label for="projectName">Project Name</label>
+      <input type="text" id="projectName" placeholder="Enter project name" required>
+      <label for="site">Site</label>
+      <input type="text" id="site" placeholder="Enter site" required>
+      <button type="submit">Generate &amp; Copy File Name</button>
     </form>
-
+    <div id="copiedWarning">
+      File name has been copied to clipboard!
+    </div>
     <div id="result"></div>
-    <div id="copyMsg">Copied!</div>
-    <a class="footer-link" href="index.html">⬅️ Back to Home</a>
+    <a href="index.html" class="return-btn" style="margin-top:30px;">⬅️ Return to Index Page</a>
   </div>
-
   <script>
-  function todayDate() {
-    const d = new Date();
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth() + 1).padStart(2, '0');
-    const dd = String(d.getDate()).padStart(2, '0');
-    return `${dd}.${mm}.${yyyy}`;
-  }
-
-  function toUpper(text) {
-    return text.trim().toUpperCase();
-  }
-
-  function toggleFields() {
-    const type = document.querySelector('input[name="fileType"]:checked').value;
-    document.getElementById('plFields').style.display = type === 'PL' ? '' : 'none';
-    document.getElementById('slFields').style.display = type === 'SL' ? '' : 'none';
-    document.getElementById('result').innerText = '';
-    document.getElementById('copyMsg').style.display = 'none';
-  }
-
-  function generateAndCopyFileName() {
-    const type = document.querySelector('input[name="fileType"]:checked').value;
-    const revision = toUpper(document.getElementById('revisionNumber').value);
-    if (!revision) {
-      document.getElementById('result').innerText = "Please enter revision number.";
-      document.getElementById('copyMsg').style.display = 'none';
-      return;
+    function toggleSLFields() {
+      const slFields = document.getElementById('slFields');
+      const slRadio = document.getElementById('sl');
+      slFields.style.display = slRadio.checked ? 'block' : 'none';
     }
-    let fileName = '';
-    if (type === 'PL') {
-      const lead = toUpper(document.getElementById('plLead').value);
-      const customer = toUpper(document.getElementById('plCustomer').value);
-      const project = toUpper(document.getElementById('plProject').value);
-      const site = toUpper(document.getElementById('plSite').value);
-      const date = todayDate();
-      if (!lead || !customer || !project || !site) {
-        document.getElementById('result').innerText = "Please fill all fields.";
-        document.getElementById('copyMsg').style.display = 'none';
-        return;
-      }
-      fileName = `PL_${lead}_PARKING SYSTEM_${customer}_${project}_${site}_REV${revision}_${date}`;
-    } else {
-      const system = toUpper(document.getElementById('slSystem').value);
-      const weight = toUpper(document.getElementById('slWeight').value);
-      const lead = toUpper(document.getElementById('slLead').value);
-      const customer = toUpper(document.getElementById('slCustomer').value);
-      const project = toUpper(document.getElementById('slProject').value);
-      const site = toUpper(document.getElementById('slSite').value);
-      const date = todayDate();
-      if (!system || !weight || !lead || !customer || !project || !site) {
-        document.getElementById('result').innerText = "Please fill all fields.";
-        document.getElementById('copyMsg').style.display = 'none';
-        return;
-      }
-      fileName = `SL_${system}_PARKING SYSTEM_${weight}TON_${lead}_${customer}_${project}_${site}_REV${revision}_${date}`;
+    // Initialize on page load
+    window.onload = toggleSLFields;
+
+    function formatInput(text) {
+      return text.trim().toUpperCase();
     }
-    document.getElementById('result').innerText = fileName;
-    navigator.clipboard.writeText(fileName);
-    const msg = document.getElementById('copyMsg');
-    msg.style.display = 'block';
-    msg.classList.add('show');
-    setTimeout(() => msg.classList.remove('show'), 1200);
-  }
+
+    function generateFileName() {
+      const prefix = document.querySelector('input[name="prefix"]:checked').value;
+      const revision = formatInput(document.getElementById('revision').value);
+      const leadNumber = formatInput(document.getElementById('leadNumber').value);
+      const customerName = formatInput(document.getElementById('customerName').value);
+      const projectName = formatInput(document.getElementById('projectName').value);
+      const site = formatInput(document.getElementById('site').value);
+      const systemName = formatInput(document.getElementById('systemName').value);
+      const weight = formatInput(document.getElementById('weight').value);
+
+      // Get current date in DD.MM.YYYY format
+      const now = new Date();
+      const day = String(now.getDate()).padStart(2, '0');
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const year = now.getFullYear();
+      const dateStr = `${day}.${month}.${year}`;
+
+      let fileName = "";
+
+      if (prefix === 'PL') {
+        // PL_revision_leadNumber_customerName_projectName_site_DD.MM.YYYY
+        fileName = `${prefix}_${revision}_${leadNumber}_${customerName}_${projectName}_${site}_${dateStr}`;
+      } else if (prefix === 'SL') {
+        // SL_revision_systemName_weight TON_customerName_projectName_site_DD.MM.YYYY
+        fileName = `${prefix}_${revision}_${systemName}_${weight} TON_${customerName}_${projectName}_${site}_${dateStr}`;
+      }
+
+      // Convert to ALL CAPS before displaying and copying
+      fileName = fileName.toUpperCase();
+
+      document.getElementById('result').textContent = fileName;
+
+      // Show warning and copy to clipboard
+      if (fileName) {
+        navigator.clipboard.writeText(fileName);
+        const warning = document.getElementById('copiedWarning');
+        warning.style.display = 'block';
+        warning.classList.add('show');
+        setTimeout(() => {
+          warning.classList.remove('show');
+          warning.style.display = 'none';
+        }, 1200);
+      }
+    }
   </script>
 </body>
 </html>
